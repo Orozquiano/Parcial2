@@ -14,7 +14,7 @@ export class ChatService {
 
   connect() {
     return new Observable(observer => {
-      this.socket = io('localhost:3000');
+      this.socket = io('https://suanfanzapp2.loca.lt');//lt -p 3000 -s suanfanzapp2
       this.socket.on('connect', () => {
         observer.next();
       })
