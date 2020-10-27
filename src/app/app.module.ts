@@ -8,7 +8,10 @@ import { LoginComponent } from './pages/public/login/login.component';
 import { RegisterComponent } from './pages/public/register/register.component';
 
 //firebase
-import{environment} from '../environments/environment';
+import{environment} from '../environments/environment'; //JP
+import{AngularFireModule} from '@angular/fire'; //JP
+import{AngularFireAnalyticsModule} from '@angular/fire/analytics'; //JP
+import{AngularFirestoreModule} from  '@angular/fire/firestore'; //JP
 // import{AngularFireModule} from 'angularfire2';
 // import{AngularFireDatabaseModule} from 'angularfire2/database';
 
@@ -20,7 +23,7 @@ import{environment} from '../environments/environment';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent, 
     // BooksComponent,
   ],
   imports: [
@@ -28,6 +31,10 @@ import{environment} from '../environments/environment';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase), //JP
+    AngularFireAnalyticsModule, //JP
+    AngularFirestoreModule //JP
+    
     // AngularFireModule.initializeApp(environment.firebaseConfig),
     // AngularFireDatabaseModule
   ],
