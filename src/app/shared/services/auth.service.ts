@@ -8,36 +8,29 @@ export interface Item {name: string, lname: string, telefono: string, email:stri
 @Injectable({
   providedIn: 'root'
 })
-// export class ConService{
-//   private itemsCollection: AngularFirestoreCollection<Item>;
-//   items: Observable<Item[]>; 
-//   constructor(private afs: AngularFirestore){ 
-//     this.itemsCollection = afs.collection<Item>('items');
-//     this.items = this.itemsCollection.snapshotChanges().pipe(
-//       map(actions => actions.map(a =>{
-//         const data = a.payload.doc.data() as Item;
-//         const id = a.payload.doc.id;
-//         return {id, ...data};
-//       }))
-//     ); 
-//   }
-//   retornaItems(){
-//     return this.items;
-//   }
-//   addItem(item : Item){
-//     this.itemsCollection.add(item);
-//   }
-// }
 export class AuthService {
 
   constructor(){}
   user: UserI | undefined;
 
-  login(user: UserI) {
-    const passKey = "suanfanzon";
-    if (user.password === passKey) {
-      this.user = user;
-      window.localStorage.setItem('user', JSON.stringify(this.user));
+  login(user: UserI, lista: Array<UserI>) {
+    let existe=false;
+    let posicion=-1;
+    for(let i=0;i<lista.length;i++){
+      if(user.email === lista[i].email || user.telefono === lista[i].telefono){
+        existe=true;
+        posicion=i;
+      }
+    }
+    if(existe){
+      if(user.password === lista[posicion].password){
+        this.user = user;
+        window.localStorage.setItem('user', JSON.stringify(this.user));
+      }else{
+        alert("La contraseña o el usuario que ingresaste son incorrectos.");
+      }
+    }else{
+      alert("El usuario que ingreso no se encuentra registrado.");
     }
   }
 

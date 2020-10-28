@@ -16,21 +16,21 @@ export class RegisterComponent implements OnInit {
   baseref = firebase.database().ref('items');
   userForm = new FormGroup({
     email: new FormControl( '', Validators.compose([Validators.email, Validators.required])),
-    telefono: new FormControl( '', Validators.compose([Validators.minLength(10), Validators.required])),
-    // telefono: new FormControl('', Validators.compose([Validators.pattern(/^[+]+[1-9]+$/),Validators.required, Validators.minLength(9)])),
+    //telefono: new FormControl( '', Validators.compose([Validators.minLength(10), Validators.required])),
+    telefono: new FormControl('', Validators.compose([Validators.pattern(/^[+]+[0-9]+$/),Validators.required, Validators.minLength(9)])),
     name: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z]+$/),Validators.required])),
     lname: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z]+$/),Validators.required])),
     username: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z]+$/),Validators.required])),
     password: new FormControl('', Validators.compose([Validators.minLength(8),Validators.required])),
-    // telefono: new FormControl('',Validators.compose([Validators.minLength(8),Validators.required])),
+    vpassword: new FormControl('',Validators.compose([Validators.minLength(8),Validators.required])),
   });
 
   constructor(private router:Router, private authService:AuthService, private registerService:RegisterService) { }
-
+  
   listaRegistro: UserI[];
   
   ngOnInit(): void {
-    this.listaRegistro = this.registerService.goToRegister();
+    this.listaRegistro = this.registerService.PullRegister();
     console.log(this.listaRegistro);
   }
   
@@ -62,17 +62,27 @@ export class RegisterComponent implements OnInit {
         console.log("Su email ya existe deje de ser tan orozco");
       }
       else{
-        this.baseref.push(user);
-        this.listaRegistro.push(user);
+        if(this.userForm.controls.vpassword.value=== this.userForm.controls.password.value){
+          
+          this.baseref.push(user);
+          this.listaRegistro.push(user);
+          user.password=undefined;
+          window.localStorage.setItem('items', JSON.stringify(user) );
+          this.authService.login(user, this.listaRegistro);
+          this.router.navigate(['/']);
+        }else{
+          alert("La contraseña no coincide");
+          this.router.navigate(['/register']);
+        }
       }
     }
   
     console.log(this.userForm);
     
     
-    this.authService.login(user);
+    
 
-    this.router.navigate(['/']);
+    
   }
 
   goToLogin() {

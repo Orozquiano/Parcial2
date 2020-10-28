@@ -9,11 +9,14 @@ export class RegisterService {
   baseref = firebase.database().ref('items');
 
   constructor() { }
-  goToRegister(){
-    let regList = [];
-    this.baseref.on('child_added', snapshot =>{
-      regList.push(snapshot.val())
-    })
-    return regList;
+  PullRegister(){
+    console.log("PullRegister");
+    let users = [];
+    this.baseref.on('child_added', snapshot => {
+      users.push(snapshot.val());
+      //console.log("pushed an item: "+snapshot.val().password);
+    });
+    //console.log("registers: "+users.length);
+    return users;
   }
 }
