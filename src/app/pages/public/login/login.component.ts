@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     const user: UserI = {
       email: "",
       username: "",
-      favNumber: 0,
+      telefono: "",
       lname: "",
       password: "",
       name: "",

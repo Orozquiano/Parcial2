@@ -24,7 +24,10 @@ import{AngularFirestoreModule} from  '@angular/fire/firestore'; //JP
     AppComponent,
     LoginComponent,
     RegisterComponent, 
+   
+
     // BooksComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -32,8 +35,8 @@ import{AngularFirestoreModule} from  '@angular/fire/firestore'; //JP
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase), //JP
-    AngularFireAnalyticsModule, //JP
-    AngularFirestoreModule //JP
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule
     
     // AngularFireModule.initializeApp(environment.firebaseConfig),
     // AngularFireDatabaseModule
