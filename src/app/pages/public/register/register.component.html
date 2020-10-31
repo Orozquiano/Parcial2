@@ -19,7 +19,7 @@
           <form [formGroup]="userForm">
             <div class="field">
               <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="Email">
+                <input class="input"  formControlName="email" type="email" placeholder="Email" [value]="userForm.controls.email.value" >
                 <span class="icon is-small is-left">
                   <i class="fas fa-envelope"></i>
                 </span>
@@ -39,7 +39,7 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="password" placeholder="Password">
+                <input class="input" type="password" formControlName="password" [value]="userForm.controls.password.value"placeholder="Password">
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -47,7 +47,7 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="name" type="text" placeholder="Name">
+                <input class="input" type="password" formControlName="vpassword" [value]="userForm.controls.vpassword.value"placeholder="Verify Password">
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -55,7 +55,7 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="lname" type="text" placeholder="Last Name">
+                <input class="input" formControlName="name" type="text" [value]="userForm.controls.name.value" placeholder="Name">
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -63,7 +63,15 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="favNumber" type="number" placeholder="Favorite Number">
+                <input class="input" formControlName="lname" type="text" [value]="userForm.controls.lname.value" placeholder="Last Name">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" formControlName="telefono" type="text" [value]="userForm.controls.telefono.value" placeholder="phone number">
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
