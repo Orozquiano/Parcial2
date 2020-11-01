@@ -87,6 +87,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentChat.icon = this.chats[index].icon;
       this.currentChat.msgs = this.chats[index].msgs;
   }
+  addContacto(){
+    console.log("Orozco perro");
+    
+  }
 
   doLogout() {
     this.authService.logout();

@@ -17,7 +17,7 @@
                         <div class="logout">
                             <ul>
                                 <li>
-                                    <pre class="botonAddC">Add contact</pre>
+                                    <pre class="botonAddC" (click)="addContacto()">Add contact</pre>
                                 </li>
                                 <li>
                                     <pre class="botonlgot" (click)="doLogout()">Log out</pre>
@@ -41,6 +41,7 @@
         </div>
     </div>
     <div class="rightBigContainer">
+        <app-add-contact></app-add-contact> 
         <app-chat-area [title]="currentChat.title" [icon]="currentChat.icon" [msgs]="currentChat.msgs"></app-chat-area>
     </div>
 </div>
