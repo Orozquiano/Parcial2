@@ -85,6 +85,7 @@ $titleFont: sfProTextMedium;
                         }
                     }
                     .leftMore {
+                        position: relative;
                         width: 40px;
                         height: 40px;
                         margin: 0 0 0 10px;
@@ -93,6 +94,27 @@ $titleFont: sfProTextMedium;
                         &:active {
                             background: #D5D5D5;
                             border-radius: 50%;
+                        }
+                        .logout{
+                            display: none;
+                            position: absolute;
+                            right:0px;
+                            background: #EDEDED;
+                            padding:5px 10px;
+                            z-index: 20;
+                            .botonlgot{
+                                font-family: sfProTextMedium;
+                                position: relative;
+                                background: none;
+                            }
+                            &:hover{
+                                background: #D5D5D5;
+                            }
+                        }
+                        &:hover{
+                            .logout{
+                                display: block;
+                            }
                         }
                     }
                 }
