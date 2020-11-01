@@ -100,15 +100,18 @@ $titleFont: sfProTextMedium;
                             position: absolute;
                             right:0px;
                             background: #EDEDED;
-                            padding:5px 10px;
                             z-index: 20;
-                            .botonlgot{
+                            li{
+                                padding:5px 10px;
+                                pre{
+                                    background: none;
+                                }
                                 font-family: sfProTextMedium;
                                 position: relative;
-                                background: none;
-                            }
-                            &:hover{
-                                background: #D5D5D5;
+                                background: none;    
+                                &:hover{
+                                    background: #D5D5D5;
+                                }
                             }
                         }
                         &:hover{

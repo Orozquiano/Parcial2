@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.userForm.status);
 
     let emailExist = false;
+    let telExist = false;
     if(this.userForm.status == "INVALID"){
       // alert("nel perro");
       if(this.userForm.controls.password.value == this.userForm.controls.vpassword.value){
@@ -69,9 +70,16 @@ export class RegisterComponent implements OnInit {
         if(this.userForm.controls.email.value=== this.listaRegistro[i].email){
           emailExist=true;
         }
+        if(this.userForm.controls.telefono.value=== this.listaRegistro[i].telefono){
+          telExist=true;
+        }
       }
-      if(emailExist){
-        console.log("Su email ya existe deje de ser tan orozco");
+      if(emailExist || telExist){
+        if(emailExist){
+          alert("Su email ya se encuentra registrado");
+        }else{
+          alert("Su telefono ya se encuentra registrado");
+        }
       }
       else{
         if(this.userForm.controls.vpassword.value=== this.userForm.controls.password.value){
