@@ -27,13 +27,16 @@ export class LoginComponent implements OnInit {
   listofusers: UserI[];
 
   ngOnInit(): void {
-    window.localStorage.clear();
+    if(this.authService.isLogged()){
+      console.log("Existe usuario");
+      console.log(window.localStorage.getItem("user"));
+      this.router.navigate(['/']);
+    }else{
+      console.log("No Existe usuario");
+    }
+    
     this.listofusers = this.registerService.PullRegister();
     // console.log("oninit");
-    for(let i=0;i<this.listofusers.length;i++){
-      //console.log(this.listofusers[i].email);
-      // console.log("oninit-for");
-    }
   }
 
   goToRegister() {

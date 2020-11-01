@@ -19,7 +19,9 @@
           <form [formGroup]="userForm">
             <div class="field">
               <p class="control has-icons-left has-icons-right">
-                <input class="input"  formControlName="email" type="email" placeholder="Email" [value]="userForm.controls.email.value" >
+                <label>Email
+                  <input class="input"  formControlName="email" type="email" placeholder="Example_es@domain.net" [value]="userForm.controls.email.value" >
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-envelope"></i>
                 </span>
@@ -30,8 +32,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="username" [value]="userForm.controls.username.value" type="text"
-                  placeholder="Username">
+                <label>Username
+                  <input class="input" formControlName="username" [value]="userForm.controls.username.value" type="text" placeholder="UserName_1625">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -39,7 +42,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="password" [value]="userForm.controls.password.value"placeholder="Password">
+                <label>Password (min-length 6 characters)
+                  <input class="input" type="password" formControlName="password" [value]="userForm.controls.password.value"placeholder="Password">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -47,7 +52,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" type="password" formControlName="vpassword" [value]="userForm.controls.vpassword.value"placeholder="Verify Password">
+                <label>Verify Password
+                  <input class="input" type="password" formControlName="vpassword" [value]="userForm.controls.vpassword.value"placeholder="Verify Password">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -55,7 +62,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="name" type="text" [value]="userForm.controls.name.value" placeholder="Name">
+                <label>Name (Without symbols or numbers)
+                  <input class="input" formControlName="name" type="text" [value]="userForm.controls.name.value" placeholder="Name1 Name2">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -63,7 +72,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="lname" type="text" [value]="userForm.controls.lname.value" placeholder="Last Name">
+                <label>Last Name (without symbols or numbers)
+                  <input class="input" formControlName="lname" type="text" [value]="userForm.controls.lname.value" placeholder="LastName SecLastName">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
@@ -71,7 +82,9 @@
             </div>
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" formControlName="telefono" type="text" [value]="userForm.controls.telefono.value" placeholder="phone number">
+                <label>Phone Number (No letters, min-length 7 numbers)
+                  <input class="input" formControlName="telefono" type="text" [value]="userForm.controls.telefono.value" placeholder="+1 302 521 326">
+                </label>
                 <span class="icon is-small is-left">
                   <i class="fas fa-lock"></i>
                 </span>
