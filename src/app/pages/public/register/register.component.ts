@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit(): void {
     if(this.authService.isLogged()){
-      console.log("Existe usuario");
-      console.log(window.localStorage.getItem("user"));
+      // console.log("Existe usuario");
+      // console.log(window.localStorage.getItem("user"));
       this.router.navigate(['/']);
     }else{
       console.log("No Existe usuario");

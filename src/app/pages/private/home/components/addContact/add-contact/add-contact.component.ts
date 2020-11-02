@@ -21,21 +21,17 @@ export class AddContactComponent implements OnInit {
     let exist=false;
     for(let i=0;i<this.listofusers.length;i++){
       if(this.Email==this.listofusers[i].email || this.numero==this.listofusers[i].telefono){
-        
         exist=true;
-        
       }
     }
     if(exist){
-      console.log("Existe: "+exist);
-      
-      
-      this.registerService.update(this.Email);
+      // console.log("Existe: "+exist);
+      this.registerService.update(this.Email, this.numero);
     }else{
       alert("Este usuario no se encuentra registrado");
     }
-    
   }
+
   cerrarModal(){
     document.getElementById("addContact").style.display='none';
   }
