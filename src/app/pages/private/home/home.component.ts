@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentChat.msgs = this.chats[index].msgs;
   }
   addContacto(){
-    console.log("Orozco perro");
+    document.getElementById("addContact").style.display='flex';
     
   }
 

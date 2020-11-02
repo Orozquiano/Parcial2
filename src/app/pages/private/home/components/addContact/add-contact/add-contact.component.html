@@ -1,5 +1,36 @@
 <div id="addContact">
     <div class="container">
-        
+        <div class="equis" (click)="cerrarModal()">x</div>
+        <h2 >Add contact</h2>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input [(ngModel)]="Email" id="email" class="input" type="text" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div><br>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input [(ngModel)]="numero" id="numero" class="input" type="text" placeholder="phone Number">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div><br>
+
+        <div class="field">
+            <div class="buttons">
+                <button (click)="Agregar()" class="button is-info">Add</button>
+
+            </div>
+        </div>
+
     </div>
 </div>

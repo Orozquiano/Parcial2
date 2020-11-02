@@ -5,4 +5,5 @@ export interface UserI {
     lname: string;
     password?: string;
     telefono?: string;
+    contactos: Array<string>;
 }

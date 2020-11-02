@@ -50,7 +50,8 @@ export class RegisterComponent implements OnInit {
       telefono: this.userForm.controls.telefono.value.replace(" ",""),
       lname: this.userForm.controls.lname.value,
       password: this.userForm.controls.password.value,
-      name:this.userForm.controls.name.value 
+      name:this.userForm.controls.name.value,
+      contactos:[""]
     };
     console.log(this.userForm.status);
 
@@ -87,7 +88,7 @@ export class RegisterComponent implements OnInit {
           this.baseref.push(user);
           this.listaRegistro.push(user);
           user.password=undefined;
-          window.localStorage.setItem('items', JSON.stringify(user) );
+          
           this.authService.login(user, this.listaRegistro);
           this.router.navigate(['/']);
         }else{

@@ -13,6 +13,7 @@ export class AuthService {
   constructor(){}
   user: UserI | undefined;
 
+
   login(user: UserI, lista: Array<UserI>) {
     let existe=false;
     let posicion=-1;
@@ -25,6 +26,8 @@ export class AuthService {
     if(existe){
       if(user.password === lista[posicion].password){
         this.user = user;
+        
+        // window.localStorage.setItem('user', JSON.stringify(this.user));
         window.localStorage.setItem('user', JSON.stringify(this.user));
       }else{
         alert("La contraseña o el usuario que ingresaste son incorrectos.");
@@ -45,6 +48,7 @@ export class AuthService {
     window.localStorage.clear();
     window.location.href = '';
   }
+
 
 }
 

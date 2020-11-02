@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
       name:'',
       lname:'',
       telefono:this.userForm.controls.email.value,
-      username:''
+      username:'',
+      contactos:[""]
     };
 
     this.authService.login(user,this.listofusers);
