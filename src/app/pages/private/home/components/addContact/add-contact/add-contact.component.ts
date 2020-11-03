@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/shared/services/register/register.service'
+import { ContactService } from 'src/app/shared/services/contact/contact.service'
 import { UserI } from 'src/app/shared/interfaces/UserI';
 
 @Component({
@@ -12,7 +13,7 @@ export class AddContactComponent implements OnInit {
   Email: string;
   numero:string;
   listofusers:UserI[];
-  constructor(private registerService:RegisterService) { }
+  constructor(private registerService:RegisterService, private contactService:ContactService) { }
 
   ngOnInit(): void {
     this.listofusers = this.registerService.PullRegister();
@@ -26,7 +27,7 @@ export class AddContactComponent implements OnInit {
     }
     if(exist){
       // console.log("Existe: "+exist);
-      this.registerService.update(this.Email, this.numero);
+      this.contactService.agregar(this.Email, this.numero);
     }else{
       alert("Este usuario no se encuentra registrado");
     }

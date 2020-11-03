@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserI } from 'src/app/shared/interfaces/UserI';
+import { ContactI } from 'src/app/shared/interfaces/ContactI';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat/chat.service';
 import { ChatI } from './interfaces/ChatI';
 import { MessageI } from './interfaces/MessageI';
-import { RegisterService } from '../../../shared/services/register/register.service'
+import { ContactService } from 'src/app/shared/services/contact/contact.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +15,16 @@ import { RegisterService } from '../../../shared/services/register/register.serv
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  
+
   subscriptionList: {
     connection: Subscription,
     msgs: Subscription
   } = {
-    connection: undefined,
-    msgs: undefined
-  };
-  
-  
+      connection: undefined,
+      msgs: undefined
+    };
+
+
   // chats: Array<ChatI> = [
   //     {
   //     title: "Santi",
@@ -50,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   //     msgPreview: "Nice front 😎",
   //     lastMsg: "23:30",
   //     msgs: []
-  //   },
+  //   }
   // ];
 
   currentChat = {
@@ -58,59 +60,58 @@ export class HomeComponent implements OnInit, OnDestroy {
     icon: "",
     msgs: []
   };
-  
-  constructor(public authService: AuthService, public chatService: ChatService, private registerService: RegisterService) { }
-  
-  chats: Array<ChatI>=[];
-  listofusers: UserI[]=this.registerService.PullRegister();
-  
+  chats: Array<ChatI> = [];
+  // listofcontacts: [] = [];
+
+  constructor(public authService: AuthService, public chatService: ChatService, public contactService: ContactService) { }
+
   ngOnInit(): void {
-    // this.chats=[];
     this.initChat();
   }
-  
+
   ngOnDestroy(): void {
     this.destroySubscriptionList();
     this.chatService.disconnect();
   }
-  
+
   initChat() {
-    console.log("Initchat");
-    let user: UserI;
-    let loged = window.localStorage.getItem('user').split('","')[0];
-    // console.log(listofusers[0][0]);
-    this.registerService.PullRegister().forEach(element => {
-      console.log(element.name);
-      
-    });
-    for(let i = 0; i<this.listofusers.length; i++){
-      console.log(i," en for ",this.listofusers[i].email);
-      
-      if (loged.includes(this.listofusers[i].email) || loged.includes(this.listofusers[i].telefono)) {
-        user = this.listofusers[i];
-        console.log("Logeadito - ",user.username);
-      }
-    }
-    for (let c = 0; c <this.listofusers.length; c++) {
-      if (user.contactos.includes(this.listofusers[c].email)) {
-        let chatin: ChatI = {
-          title: this.listofusers[c].name+this.listofusers[c].lname,
-          icon: "",
-          msgPreview: "Aun sin preview",
-          isRead: false,
-          lastMsg: "El Last",
-          msgs: [{
-            content: "El Mensaje",
-            time: "me recibe?",
-            isRead: false,
-            owner: this.listofusers[c].email,
-            isMe: true
-          }],
+
+    let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].replace('"', "");
+    let contactlist = this.contactService.getContacts(loged);
+    // let user:UserI = this.contactService.getUserActive(loged);
+    console.log("long:",contactlist.length);
+    if (contactlist.length != 0 && contactlist.length!= undefined) {
+      for(let CoN=0; CoN<contactlist.length;CoN++){
+        if (contactlist[CoN] == null) {
+          console.log("Contacto vacio");
+        } else {
+          let elcont = this.contactService.getContactUser(contactlist[CoN].email);
+          if (elcont.email != "") {
+            let chatin: ChatI = {
+              title: elcont.email,
+              icon: "",
+              msgPreview: "Aun sin preview",
+              isRead: false,
+              lastMsg: "12:00",
+              msgs: [{
+                content: "El Mensaje",
+                time: "00:00",
+                isRead: false,
+                owner: elcont.email,
+                isMe: true
+              }],
+            };
+            this.chats.push(chatin);
+            console.log(chatin);
+            console.log("chatin");
+          } else {
+            console.log("Null contact");
+            console.log(elcont);
+          }
         }
-        this.chats.push(chatin);
-        console.log(chatin);
-        console.log("chatin");
       }
+    }else{
+      console.log(contactlist.length,"No contacts found", contactlist);
     }
     if (this.chats.length > 0) {
       this.currentChat.title = this.chats[0].title;

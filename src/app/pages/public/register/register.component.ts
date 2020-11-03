@@ -51,7 +51,10 @@ export class RegisterComponent implements OnInit {
       lname: this.userForm.controls.lname.value,
       password: this.userForm.controls.password.value,
       name:this.userForm.controls.name.value,
-      contactos:[""]
+      contactos:[{
+        email:"",
+        chat:[]
+      }]
     };
     console.log(this.userForm.status);
 
