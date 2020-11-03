@@ -36,7 +36,7 @@ export class ChatAreaComponent implements OnInit {
       alert("No puede enviar un mensaje vacio");
     }else{
       this.chatService.sendMsg(msg);
-      this.homeComponent.initChat();
+      // this.homeComponent.initChat();
     }
     this.msg = "";
   }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MessageI } from 'src/app/pages/private/home/interfaces/MessageI';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import * as firebase from 'firebase';
+import { ChatI } from 'src/app/pages/private/home/interfaces/ChatI';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,7 @@ export class ChatService {
     });
   }
 
-  sendMsg(msg: MessageI) {
-    this.socket.emit('newMsg', msg);
+  sendMsg(msg: MessageI ) {
     let user:UserI;
     let recept: UserI;
     let userid="";
@@ -71,6 +71,7 @@ export class ChatService {
     if(!existe){
       alert("Este usuario no lo tiene en sus contactos"+recept.email+user_e);
     }
+    this.socket.emit('newMsg', msg);//cambio
   }
 
   disconnect() {

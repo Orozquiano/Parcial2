@@ -66,11 +66,8 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   // listofcontacts: [] = [];
 
   constructor(public authService: AuthService, public chatService: ChatService, public contactService: ContactService) { }
-    
-    // Animation(){
-    //     this.initChat();
-    // }
-
+  conectado: boolean = false;
+  
   ngOnChanges(){
     this.initChat();
   }
@@ -128,20 +125,25 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
       this.currentChat.icon = this.chats[0].icon;
       this.currentChat.msgs = this.chats[0].msgs;
     }
-    this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
-      console.log("Nos conectamos");
-      this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
-        let Me = this.currentChat.title === msg.owner ? true : false;
-        // msg.isMe 
-        if(Me==true){
-          this.currentChat.msgs.push(msg);
-        }else{
-          alert("no soy yo");
-        }
-        this.initChat();
+    
+    if(!this.conectado){
+      
+      this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
+        this.conectado=true;
+        console.log("Nos conectamos");
+        this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
+          let Me = this.currentChat.title === msg.owner ? true : false;
+          // let Me = msg.title === loged ? true : false; 
+          // msg.isMe 
+          if(Me==true){
+            this.currentChat.msgs.push(msg);
+          }else{
+            alert("no soy yo");
+          }
+          // this.initChat(); // Cambio
+        });
       });
-    });
-    // this.Animation();
+    }
   }
 
   onSelectInbox(index: number) {
@@ -161,6 +163,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     for (const key of Object.keys(this.subscriptionList)) {
       if (this.subscriptionList[key] && exceptList.indexOf(key) === -1) {
         this.subscriptionList[key].unsubscribe();
+        this.conectado=false;
       }
     }
   }
