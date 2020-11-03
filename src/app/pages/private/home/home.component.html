@@ -45,3 +45,10 @@
         <app-chat-area [title]="currentChat.title" [icon]="currentChat.icon" [msgs]="currentChat.msgs"></app-chat-area>
     </div>
 </div>
+<script>
+    Animation();
+    function Animation(){
+        requestAnimationFrame(Animation);
+        initChat();
+    }
+</script>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/shared/services/chat/chat.service';
 import { MessageI } from '../../interfaces/MessageI';
+import { HomeComponent} from  '../../home.component';
 
 @Component({
   selector: 'app-chat-area',
@@ -15,7 +16,7 @@ export class ChatAreaComponent implements OnInit {
 
   msg: string;
 
-  constructor(public chatService: ChatService) { }
+  constructor(public chatService: ChatService, public homeComponent:HomeComponent) { }
 
   ngOnInit(): void {
   }
@@ -29,9 +30,13 @@ export class ChatAreaComponent implements OnInit {
       time: T.getHours()+":"+T.getMinutes(),
       isRead: false,
       owner: this.title
+    };
+    if(msg.content==""){
+      alert("No puede enviar un mensaje vacio");
+    }else{
+      this.chatService.sendMsg(msg);
+      this.homeComponent.initChat();
     }
-    this.chatService.sendMsg(msg);
-
     this.msg = "";
   }
 }
