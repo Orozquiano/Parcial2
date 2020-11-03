@@ -131,8 +131,14 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
       console.log("Nos conectamos");
       this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
-        msg.isMe = this.currentChat.title === msg.owner ? true : false;
-        this.currentChat.msgs.push(msg);
+        let Me = this.currentChat.title === msg.owner ? true : false;
+        // msg.isMe 
+        if(Me==true){
+          this.currentChat.msgs.push(msg);
+        }else{
+          alert("no soy yo");
+        }
+        this.initChat();
       });
     });
     // this.Animation();
