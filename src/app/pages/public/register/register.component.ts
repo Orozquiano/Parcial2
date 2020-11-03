@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit(): void {
     if(this.authService.isLogged()){
-      console.log("Existe usuario");
-      console.log(window.localStorage.getItem("user"));
+      // console.log("Existe usuario");
+      // console.log(window.localStorage.getItem("user"));
       this.router.navigate(['/']);
     }else{
       console.log("No Existe usuario");
@@ -51,7 +51,10 @@ export class RegisterComponent implements OnInit {
       lname: this.userForm.controls.lname.value,
       password: this.userForm.controls.password.value,
       name:this.userForm.controls.name.value,
-      contactos:[""]
+      contactos:[{
+        email:"",
+        chat:[]
+      }]
     };
     console.log(this.userForm.status);
 

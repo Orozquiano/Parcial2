@@ -21,14 +21,17 @@ export class ChatAreaComponent implements OnInit {
   }
 
   sendMsg() {
+    let T= new Date();
+    let user_e = window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","password',"");
     const msg: MessageI = {
       content: this.msg,
       isMe: true,
-      time: "8:58",
+      time: T.getHours()+":"+T.getMinutes(),
       isRead: false,
       owner: this.title
     }
     this.chatService.sendMsg(msg);
+
     this.msg = "";
   }
 }

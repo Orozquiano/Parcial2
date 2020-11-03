@@ -1,3 +1,4 @@
+import { ContactI } from 'src/app/shared/interfaces/ContactI';
 export interface UserI {
     email: string;
     username: string;
@@ -5,5 +6,5 @@ export interface UserI {
     lname: string;
     password?: string;
     telefono?: string;
-    contactos: Array<string>;
+    contactos: Array<ContactI>;
 }

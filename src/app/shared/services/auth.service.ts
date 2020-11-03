@@ -26,7 +26,6 @@ export class AuthService {
     if(existe){
       if(user.password === lista[posicion].password){
         this.user = user;
-        
         // window.localStorage.setItem('user', JSON.stringify(this.user));
         window.localStorage.setItem('user', JSON.stringify(this.user));
       }else{
