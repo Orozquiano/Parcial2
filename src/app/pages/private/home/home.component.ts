@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import { ContactI } from 'src/app/shared/interfaces/ContactI';
@@ -14,7 +14,9 @@ import * as firebase from 'firebase';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, OnChanges {
+
+  baserf=firebase.database().ref('items');
 
   subscriptionList: {
     connection: Subscription,
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       msgs: undefined
     };
 
-
+  
   // chats: Array<ChatI> = [
   //     {
   //     title: "Santi",
@@ -64,7 +66,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   // listofcontacts: [] = [];
 
   constructor(public authService: AuthService, public chatService: ChatService, public contactService: ContactService) { }
+    
+    // Animation(){
+    //     this.initChat();
+    // }
 
+  ngOnChanges(){
+    this.initChat();
+  }
   ngOnInit(): void {
     this.initChat();
   }
@@ -75,7 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   initChat() {
-
+    this.chats=[];
     let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].replace('"', "");
     let contactlist = this.contactService.getContacts(loged);
     // let user:UserI = this.contactService.getUserActive(loged);
@@ -90,16 +99,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             let chatin: ChatI = {
               title: elcont.email,
               icon: "",
-              msgPreview: "Aun sin preview",
-              isRead: false,
-              lastMsg: "12:00",
-              msgs: [{
-                content: "El Mensaje",
-                time: "00:00",
-                isRead: false,
-                owner: elcont.email,
-                isMe: true
-              }],
+              msgPreview: contactlist[CoN].chat[contactlist[CoN].chat.length-1].content,
+              isRead: contactlist[CoN].chat[contactlist[CoN].chat.length-1].isRead,
+              lastMsg: contactlist[CoN].chat[contactlist[CoN].chat.length-1].time,
+              msgs: contactlist[CoN].chat
+              // msgs: [{
+              //   content: "El Mensaje",
+              //   time: "00:00",
+              //   isRead: false,
+              //   owner: elcont.email,
+              //   isMe: true
+              // }],
             };
             this.chats.push(chatin);
             console.log(chatin);
@@ -125,6 +135,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.currentChat.msgs.push(msg);
       });
     });
+    // this.Animation();
   }
 
   onSelectInbox(index: number) {
