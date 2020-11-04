@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   initChat() {
     this.chats = [];
-    let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].replace('"', "");
+    let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].split('","')[0];
     let contactlist = this.contactService.getContacts(loged);
     // let user:UserI = this.contactService.getUserActive(loged);
     console.log("long:", contactlist.length);
@@ -121,11 +121,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       console.log(contactlist.length, "No contacts found", contactlist);
     }
-    if (this.chats.length > 0) {
-      this.currentChat.title = this.chats[0].title;
-      this.currentChat.icon = this.chats[0].icon;
-      this.currentChat.msgs = this.chats[0].msgs;
-    }
+    // if (this.chats.length > 0) {
+    //   this.currentChat.title = this.chats[0].title;
+    //   this.currentChat.icon = this.chats[0].icon;
+    //   this.currentChat.msgs = this.chats[0].msgs;
+    // }
 
     if (!this.conectado) {
 
@@ -156,6 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onSelectInbox(index: number) {
+    this.initChat();
     this.currentChat.title = this.chats[index].title;
     this.currentChat.icon = this.chats[index].icon;
     this.currentChat.msgs = this.chats[index].msgs;

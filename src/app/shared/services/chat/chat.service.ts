@@ -37,7 +37,7 @@ export class ChatService {
     let recept: UserI;
     let userid="";
     let receptid="";
-    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","username',"");
+    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].split('","')[0];
     let recep_e=msg.owner;
     msg.owner=user_e;
     // let correo:reset_e

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from 'src/app/shared/services/chat/chat.service';
 import { MessageI } from '../../interfaces/MessageI';
 import { HomeComponent} from  '../../home.component';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-chat-area',
@@ -39,9 +40,11 @@ export class ChatAreaComponent implements OnInit {
       alert("No puede enviar un mensaje vacio");
     }else{
       this.chatService.sendMsg(msg);
+      this.FocusMsg(msg);
       // this.homeComponent.initChat();
     }
     this.msg = "";
+
   }
   SearchWord(){
     let resultado=[];
@@ -58,5 +61,9 @@ export class ChatAreaComponent implements OnInit {
     }else{
       alert(`Se encontraron : ${resultado.length} resultados`);
     }
+  }
+  FocusMsg(msg){
+    document.getElementById('elfocus').focus();
+    
   }
 }
