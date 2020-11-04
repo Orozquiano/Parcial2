@@ -18,7 +18,7 @@ import * as firebase from 'firebase';
 export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   baserf = firebase.database().ref('items');
-
+  direccion:{Url:string,nombre:string}[];
   subscriptionList: {
     connection: Subscription,
     msgs: Subscription
@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   initChat() {
     this.chats = [];
+
     let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].split('","')[0];
     let contactlist = this.contactService.getContacts(loged);
     // let user:UserI = this.contactService.getUserActive(loged);
@@ -94,9 +95,10 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
         } else {
           let elcont = this.contactService.getContactUser(contactlist[CoN].email);
           if (elcont.email != "") {
+
             let chatin: ChatI = {
               title: elcont.email,
-              icon: "",
+              icon: String(this.direccion[CoN]),
               msgPreview: contactlist[CoN].chat[contactlist[CoN].chat.length - 1].content,
               isRead: contactlist[CoN].chat[contactlist[CoN].chat.length - 1].isRead,
               lastMsg: contactlist[CoN].chat[contactlist[CoN].chat.length - 1].time,
@@ -110,7 +112,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
               // }],
             };
             this.chats.push(chatin);
-            console.log(chatin);
+            // console.log(chatin);
             console.log("chatin");
           } else {
             console.log("Null contact");
@@ -127,13 +129,13 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     //   this.currentChat.msgs = this.chats[0].msgs;
     // }
     if (!this.conectado) {
-      
+
       this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
         this.conectado = true;
         console.log("Nos conectamos");
         this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
           let Me = this.currentChat.title === msg.owner ? true : false;
-          
+
           // let Me = msg.title === loged ? true : false; 
           // msg.isMe 
           this.UpdatePreview(msg, msg.owner, msg.destiny, contactlist);
@@ -153,8 +155,45 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
       });
     }
     this.FocusMsg();
+    this.recorrido();
+
+    console.log(this.direccion);
   }
-  
+  setURL(urll, fileN) {
+    // console.log("Esta es la hptaaaaaa URL:"+ urll );
+    if (this.chats.length == this.direccion.length) {
+      for(let c=0;c<this.chats.length;c++){
+        if(this.chats[c].title==this.direccion[c].nombre){
+
+        }
+      }
+    } else {
+      // this.direccion.push(String(urll),fileN);//aqui esta el error
+    }// console.log("Esta es la perrraaaaaa ya como direccion"+this.direccion);
+  }
+  getImageUrl(filename) {
+    // let URL = "";
+    let storage = firebase.storage().ref(`imagenes/${filename}`).getDownloadURL().then((resolve) => {
+      // this.direccion = resolve;
+      this.setURL(resolve, filename);
+      console.log("direccion:" + this.direccion + " resolve: " + resolve);
+    }).catch(error => {
+      // console.log();
+      this.setURL("https://firebasestorage.googleapis.com/v0/b/suanfanzon-28eaa.appspot.com/o/imagenes%2Fdefault.jpg?alt=media&token=c57ce3a0-95f1-4389-885c-d550c9dd0203", filename);
+      // this.direccion="";
+
+    });
+    // console.log("storage:" + this.direccion+storage.then);
+    // console.log(this.direccion);
+    // return this.direccion;
+  }
+  recorrido() {
+    this.direccion = [];
+    for (let i = 0; i < this.chats.length; i++) {
+      this.getImageUrl(this.chats[i].title);
+      // this.chats[i].icon=String(this.direccion[i]);
+    }
+  }
   onSelectInbox(index: number) {
     this.currentChat.title = this.chats[index].title;
     this.currentChat.icon = this.chats[index].icon;
@@ -165,15 +204,18 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   addContacto() {
     document.getElementById("addContact").style.display = 'flex';
   }
-  UserProfile(){
-    document.getElementById("profilediv").style.display="flex";
+  UserProfile(e) {
+    document.getElementById("profilediv").style.display = "flex";
   }
-  FocusMsg(){
+  FocusMsg() {
     document.getElementById('elfocus').focus();
   }
 
   doLogout() {
     this.authService.logout();
+  }
+  UpdateProfile(e) {
+
   }
 
   destroySubscriptionList(exceptList: string[] = []): void {
@@ -191,6 +233,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
       console.log("mio o para mi");
       for (let c = 0; c < this.chats.length; c++) {
         //recorrido en el chat inbox
+
         if (this.chats[c].title == owner || this.chats[c].title == destiny) {
           //este chat es el dueño o el destino
           let otrochats = [];
@@ -200,15 +243,17 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
             }
           }
           otrochats.push(msg);
+          // let image = this.direccion[c];
+          // this.direccion="";
           let chatin: ChatI = {
             title: this.chats[c].title,
-            icon: "",
+            icon: this.chats[c].icon,
             msgPreview: msg.content,
             isRead: msg.isRead,
             lastMsg: msg.time,
             msgs: otrochats
           };
-          this.chats[c]=chatin;
+          this.chats[c] = chatin;
           console.log("este chat es el dueño o el destino", this.chats[c].title);
         }
       }
