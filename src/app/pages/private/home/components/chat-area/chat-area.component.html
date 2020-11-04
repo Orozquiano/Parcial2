@@ -20,6 +20,7 @@
         <div class="chatDate">TODAY</div>
     </div-->
     <app-chat-message *ngFor="let msg of msgs" [content]="msg.content" [time]="msg.time" [isMe]="msg.isMe" [isRead] = "msg.isRead"></app-chat-message>
+    <input type="text"id="elfocus" readonly>
 </div>
 <div class="sendMessageForm">
     <div class="leftMessageFormIcons">

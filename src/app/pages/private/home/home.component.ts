@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   initChat() {
     this.chats = [];
-    let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].replace('"', "");
+    let loged = window.localStorage.getItem('user').split('","')[0].split('":"')[1].split('","')[0];
     let contactlist = this.contactService.getContacts(loged);
     // let user:UserI = this.contactService.getUserActive(loged);
     console.log("long:", contactlist.length);
@@ -121,20 +121,19 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       console.log(contactlist.length, "No contacts found", contactlist);
     }
-    if (this.chats.length > 0) {
-      this.currentChat.title = this.chats[0].title;
-      this.currentChat.icon = this.chats[0].icon;
-      this.currentChat.msgs = this.chats[0].msgs;
-    }
-
+    // if (this.chats.length > 0) {
+    //   this.currentChat.title = this.chats[0].title;
+    //   this.currentChat.icon = this.chats[0].icon;
+    //   this.currentChat.msgs = this.chats[0].msgs;
+    // }
     if (!this.conectado) {
-
+      
       this.subscriptionList.connection = this.chatService.connect().subscribe(_ => {
         this.conectado = true;
         console.log("Nos conectamos");
         this.subscriptionList.msgs = this.chatService.getNewMsgs().subscribe((msg: MessageI) => {
           let Me = this.currentChat.title === msg.owner ? true : false;
-
+          
           // let Me = msg.title === loged ? true : false; 
           // msg.isMe 
           this.UpdatePreview(msg, msg.owner, msg.destiny, contactlist);
@@ -153,15 +152,24 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
         });
       });
     }
+    this.FocusMsg();
   }
-
+  
   onSelectInbox(index: number) {
     this.currentChat.title = this.chats[index].title;
     this.currentChat.icon = this.chats[index].icon;
     this.currentChat.msgs = this.chats[index].msgs;
+    this.initChat();
+    this.FocusMsg();
   }
   addContacto() {
     document.getElementById("addContact").style.display = 'flex';
+  }
+  UserProfile(){
+    document.getElementById("profilediv").style.display="flex";
+  }
+  FocusMsg(){
+    document.getElementById('elfocus').focus();
   }
 
   doLogout() {
@@ -202,7 +210,6 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
           };
           this.chats[c]=chatin;
           console.log("este chat es el dueño o el destino", this.chats[c].title);
-
         }
       }
     }

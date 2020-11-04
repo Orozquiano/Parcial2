@@ -79,6 +79,13 @@ $titleFont: sfProTextMedium;
     background: #E5DDD5;
     padding-top: 20px;
     overflow-y: auto;
+    input{
+        width: 100%;
+        height: 5px;
+        opacity: 0;
+        // display: none;
+
+    }
     .chatDateContainer {
         height: 32px;
         margin: 12px 0;
