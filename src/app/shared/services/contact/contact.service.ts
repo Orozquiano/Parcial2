@@ -50,7 +50,9 @@ export class ContactService {
       isRead: false,
       owner:"",
       isMe:true,
-      time:"00:00"
+      time:"00:00",
+      date:"2020/11/04",
+      destiny:""
     };
     if (Email == "" && Numero == "") {
       alert("Debes ingresar al menos un dato para agregar el contacto");

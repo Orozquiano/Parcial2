@@ -26,7 +26,7 @@ export class ChatService {
 
   getNewMsgs() {
     return new Observable(observer => {
-      this.socket.on("newMsg", msg => {
+      this.socket.on("newMsg", (msg) => {
         observer.next(msg);
       });
     });
@@ -37,9 +37,10 @@ export class ChatService {
     let recept: UserI;
     let userid="";
     let receptid="";
-    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","password',"");
+    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","username',"");
     let recep_e=msg.owner;
     msg.owner=user_e;
+    // let correo:reset_e
     console.log("Actualizando "+user_e+" para "+recep_e);
     this.baseref.on("child_added",snapshot=>{
       if(snapshot.val().email==user_e){
