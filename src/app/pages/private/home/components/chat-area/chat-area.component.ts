@@ -52,7 +52,7 @@ export class ChatAreaComponent implements OnInit {
     for(let i=0;i<this.msgs.length;i++){
       if(this.msgs[i].content.toUpperCase().includes(this.search.toUpperCase())){
         
-        alert(`hora: ${this.msgs[i].time}; mensaje: ${this.msgs[i].content}`);
+        alert(`Fecha: ${this.msgs[i].date}; hora: ${this.msgs[i].time}; mensaje: ${this.msgs[i].content}`);
         resultado.push(this.msgs[i]);
       }
     }

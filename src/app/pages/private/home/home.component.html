@@ -1,10 +1,10 @@
 <div id="app">
     <div class="leftBigContainer">
-        <app-profile></app-profile>
+        <app-profile (onUpdateProfile)="UpdateProfile($event)"></app-profile>
         <div class="topBarLeft">
             <div class="tbLeftContainer">
                 <div class="profileContainer">
-                    <img id="profilepreview" class="profile" src="/assets/img/pp.png" alt="" srcset="" (click)="UserProfile()">
+                    <img id="profilepreview" class="profile" src="https://firebasestorage.googleapis.com/v0/b/suanfanzon-28eaa.appspot.com/o/imagenes%2Fcarlos%40gmail.com?alt=media&token=ba832116-0ca0-42fd-9b98-10010caf31ec" alt="" srcset="" (click)="UserProfile($event)">
                 </div>
                 <div class="leftRightIcons">
                     <div class="statusContainer">
