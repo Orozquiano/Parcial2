@@ -13,6 +13,7 @@ export class ChatAreaComponent implements OnInit {
   @Input() title: string = ""
   @Input() icon: string = ""
   @Input() msgs: Array<MessageI> = []
+  search: string;
 
   msg: string;
 
@@ -23,20 +24,39 @@ export class ChatAreaComponent implements OnInit {
 
   sendMsg() {
     let T= new Date();
-    let user_e = window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","password',"");
+    let user_e = window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","username',"");
     const msg: MessageI = {
       content: this.msg,
       isMe: true,
       time: T.getHours()+":"+T.getMinutes(),
       isRead: false,
-      owner: this.title
+      owner: this.title,
+      destiny: this.title,
+      date: T.getFullYear()+"/"+T.getMonth()+"/"+T.getDay()
+      
     };
     if(msg.content==""){
       alert("No puede enviar un mensaje vacio");
     }else{
       this.chatService.sendMsg(msg);
-      this.homeComponent.initChat();
+      // this.homeComponent.initChat();
     }
     this.msg = "";
+  }
+  SearchWord(){
+    let resultado=[];
+    // alert(`buscando ${this.search}`);
+    for(let i=0;i<this.msgs.length;i++){
+      if(this.msgs[i].content.toUpperCase().includes(this.search.toUpperCase())){
+        
+        alert(`hora: ${this.msgs[i].time}; mensaje: ${this.msgs[i].content}`);
+        resultado.push(this.msgs[i]);
+      }
+    }
+    if(resultado.length==0){
+      alert("No se encontraron resultados");
+    }else{
+      alert(`Se encontraron : ${resultado.length} resultados`);
+    }
   }
 }

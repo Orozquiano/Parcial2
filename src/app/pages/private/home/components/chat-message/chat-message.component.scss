@@ -28,10 +28,12 @@ $titleFont: sfProTextMedium;
         display: flex;
         align-self: flex-end;
         left: -45px;
+
         .messageTimeChat{
-            margin-right: 2px;
+            right: 2px;
             font-size: 11px;
             color: #9AAE8C;
+            position: relative;
         }
     }
     .rightTail {
@@ -49,6 +51,7 @@ $titleFont: sfProTextMedium;
         padding: 6px 7px 8px 9px;
         box-shadow:0 1px .5px rgba(black,.13);
         flex-grow: .1;
+        position: relative;
     }
 }
 .messageLeftContainer {
@@ -68,14 +71,7 @@ $titleFont: sfProTextMedium;
         padding: 6px 7px 8px 9px;
         box-shadow:0 1px .5px rgba(black,.13);
         flex-grow: .1;
-    }
-    .messageTimeChat{
-        position: absolute;
-        display: flex;
-        align-self: flex-end;
-        font-size: 11px;
-        color: #C1C1C1;
-        left: 54.5%;
+        
     }
     .leftTail {
         position: absolute;
@@ -92,5 +88,27 @@ $titleFont: sfProTextMedium;
         padding: 6px 7px 8px 9px;
         box-shadow:0 1px .5px rgba(black,.13);
         flex-grow: .1;
+        border: 1px solid black;
+        position: relative;
+        .messageTimeContainer{
+            position: absolute;
+            height: 15px;
+            margin-bottom: 1px;
+            padding-right: 12px;
+            display: flex;
+            // align-self: flex-end;
+            right:5px;
+            border: 2px solid black;
+            .messageTimeChat{
+                position: relative;
+                display: flex;
+                // align-self: flex-end;
+                font-size: 11px;
+                border: black 1px solid;
+                color: #000000;
+                right: 20px;
+            }
+        }
     }
+    
 }

@@ -43,10 +43,18 @@ $titleFont: sfProTextMedium;
             flex-flow: row wrap;
             align-items: center;
             .searchIconRight {
+                position: relative;
                 width: 40px;
                 height: 40px;
                 padding: 8px;
                 cursor: pointer;
+                .buscador{
+                    position: absolute;
+                    right: 40px;
+                    background: none;
+                    padding: 5px;
+                    border-radius: 20px;
+                }
                 &:active {
                     background: #D5D5D5;
                     border-radius: 50%;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MessageI } from 'src/app/pages/private/home/interfaces/MessageI';
 import { UserI } from 'src/app/shared/interfaces/UserI';
 import * as firebase from 'firebase';
+import { ChatI } from 'src/app/pages/private/home/interfaces/ChatI';
 
 @Injectable({
   providedIn: 'root'
@@ -25,21 +26,21 @@ export class ChatService {
 
   getNewMsgs() {
     return new Observable(observer => {
-      this.socket.on("newMsg", msg => {
+      this.socket.on("newMsg", (msg) => {
         observer.next(msg);
       });
     });
   }
 
-  sendMsg(msg: MessageI) {
-    this.socket.emit('newMsg', msg);
+  sendMsg(msg: MessageI ) {
     let user:UserI;
     let recept: UserI;
     let userid="";
     let receptid="";
-    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","password',"");
+    let user_e= window.localStorage.getItem('user').split('";"')[0].split('":"')[1].replace('","username',"");
     let recep_e=msg.owner;
     msg.owner=user_e;
+    // let correo:reset_e
     console.log("Actualizando "+user_e+" para "+recep_e);
     this.baseref.on("child_added",snapshot=>{
       if(snapshot.val().email==user_e){
@@ -71,6 +72,7 @@ export class ChatService {
     if(!existe){
       alert("Este usuario no lo tiene en sus contactos"+recept.email+user_e);
     }
+    this.socket.emit('newMsg', msg);//cambio
   }
 
   disconnect() {
