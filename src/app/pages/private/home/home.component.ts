@@ -165,7 +165,9 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   addContacto() {
     document.getElementById("addContact").style.display = 'flex';
   }
-
+  UserProfile(){
+    document.getElementById("profilediv").style.display="flex";
+  }
   FocusMsg(){
     document.getElementById('elfocus').focus();
   }

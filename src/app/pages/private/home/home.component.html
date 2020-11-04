@@ -1,9 +1,10 @@
 <div id="app">
     <div class="leftBigContainer">
+        <app-profile></app-profile>
         <div class="topBarLeft">
             <div class="tbLeftContainer">
                 <div class="profileContainer">
-                    <img class="profile" src="/assets/img/pp.png" alt="" srcset="">
+                    <img id="profilepreview" class="profile" src="/assets/img/pp.png" alt="" srcset="" (click)="UserProfile()">
                 </div>
                 <div class="leftRightIcons">
                     <div class="statusContainer">

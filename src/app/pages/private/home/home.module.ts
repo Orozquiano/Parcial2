@@ -6,6 +6,7 @@ import { ChatAreaComponent } from './components/chat-area/chat-area.component';
 import { ChatMessageComponent } from './components/chat-message/chat-message.component';
 import { FormsModule } from '@angular/forms';
 import { AddContactComponent } from './components/addContact/add-contact/add-contact.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AddContactComponent } from './components/addContact/add-contact/add-con
     InboxChatComponent,
     ChatAreaComponent,
     ChatMessageComponent,
-    AddContactComponent
+    AddContactComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule, FormsModule
