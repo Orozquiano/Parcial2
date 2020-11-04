@@ -40,7 +40,7 @@ export class ChatAreaComponent implements OnInit {
       alert("No puede enviar un mensaje vacio");
     }else{
       this.chatService.sendMsg(msg);
-      this.FocusMsg(msg);
+      this.FocusMsg();
       // this.homeComponent.initChat();
     }
     this.msg = "";
@@ -62,7 +62,7 @@ export class ChatAreaComponent implements OnInit {
       alert(`Se encontraron : ${resultado.length} resultados`);
     }
   }
-  FocusMsg(msg){
+  FocusMsg(){
     document.getElementById('elfocus').focus();
     
   }
